@@ -1,0 +1,42 @@
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="style/main.css">
+
+    <script src="script/emeraldObjects.js"></script>
+
+    <script src="script/lib/filesaver.js"></script>
+    <script src="script/lib/file.js"></script>
+    <script src="script/lib/adf.js"></script>
+    <script src="script/lib/import/emc.js"></script>
+
+
+    <script src="script/main.js"></script>
+    <script src="script/adfimport.js"></script>
+
+
+</head>
+<body onload="main()">
+    <div id="menu">
+        <div class="button" onclick="Editor.drawLevel()">Draw</div>
+        <div class="button" onclick="Editor.export()">Export</div>
+        <div class="button" onclick="Editor.play()">Play</div>
+        <div class="button" onclick="Editor.toggleZoom()">Zoom</div>
+        <div class="button" onclick="Editor.zoomToFit()">Zoom to fit</div>
+    </div>
+    <div id="toolbox">
+
+    </div>
+    <div id="editor">
+        <div id="export">
+            <textarea id="exportoutput" wrap="soft"></textarea>
+            <div class="button" onclick="Editor.closeExport()">OK</div>
+        </div>
+        <canvas width="2048" height="1024" id="canvas" class="zoomfit"></canvas>
+    </div>
+    <div id="picker">
+        <canvas id="objects" height="320" width="64"></canvas>
+    </div>
+</body>
+
+
+</html>
