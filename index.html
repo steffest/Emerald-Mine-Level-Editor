@@ -3,30 +3,49 @@
     <link type="text/css" rel="stylesheet" href="style/main.css">
 
     <script src="script/emeraldObjects.js"></script>
+    <script src="script/enum.js"></script>
 
+    <script src="script/lib/base64.js"></script>
+    <script src="script/lib/md5.js"></script>
     <script src="script/lib/filesaver.js"></script>
     <script src="script/lib/file.js"></script>
+    <script src="script/lib/eventbus.js"></script>
     <script src="script/lib/adf.js"></script>
+    <script src="script/lib/fetchService.js"></script>
     <script src="script/lib/import/emc.js"></script>
+    <script src="script/lib/zip.js"></script>
 
-
-    <script src="script/main.js"></script>
+    <script src="script/editor.js"></script>
+    <script src="script/export.js"></script>
     <script src="script/adfimport.js"></script>
 
+    <script src="script/convert/convert.js"></script>
+    <script src="script/convert/unkown.js"></script>
+    <script src="script/convert/kingsoft.js"></script>
+    <script src="script/convert/emc4.js"></script>
+    <script src="script/convert/emc6.js"></script>
+
+    <script src="script/api.js"></script>
+    <script src="script/main.js"></script>
 
 </head>
 <body onload="main()">
+    <div id="blanket"></div>
+    <div id="panels"></div>
     <div id="menu">
         <div class="button" onclick="Editor.drawLevel()">Draw</div>
         <div class="button" onclick="Editor.export()">Export</div>
         <div class="button" onclick="Editor.play()">Play</div>
         <div class="button" onclick="Editor.toggleZoom()">Zoom</div>
         <div class="button" onclick="Editor.zoomToFit()">Zoom to fit</div>
+        <div class="button" onclick="Editor.editScores()">Scores</div>
+        <span id="info"></span>
     </div>
     <div id="toolbox">
 
     </div>
     <div id="editor">
+        <div id="selectbox"></div>
         <div id="export">
             <textarea id="exportoutput" wrap="soft"></textarea>
             <div class="button" onclick="Editor.closeExport()">OK</div>
@@ -34,7 +53,7 @@
         <canvas width="2048" height="1024" id="canvas" class="zoomfit"></canvas>
     </div>
     <div id="picker">
-        <canvas id="objects" height="320" width="64"></canvas>
+        <canvas id="selectionBox" height="64" width="64"></canvas>
     </div>
 </body>
 

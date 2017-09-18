@@ -2,6 +2,8 @@ html,body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 
 *, *:before, *:after {
@@ -46,7 +48,7 @@ canvas.zoomfit{
 
 #toolbox{
     position: absolute;
-    width: 32px;
+    width: 128px;
     top: 40px;
     left: 0;
     bottom: 0;
@@ -66,9 +68,10 @@ canvas.zoomfit{
     position: absolute;
     top: 40px;
     bottom: 0;
-    left: 32px;
+    left: 128px;
     right: 64px;
     overflow: scroll;
+    background-color: black;
 }
 
 #editor #export{
@@ -103,3 +106,115 @@ canvas.zoomfit{
     height: 36px;
     bottom: 2px;
 }
+
+#editor #selectbox{
+    border:1px solid white;
+    position: absolute;
+    pointer-events: none;
+}
+
+.pickerlabel{
+    text-align: center;
+    background-color: #9ab4b8;
+    padding: 2px;
+    border: 1px solid white;
+    border-bottom: 1px solid black;
+}
+
+.pickerlabel:hover{
+    cursor: pointer;
+    background-color: #d0eaee;
+}
+
+.palette{
+    overflow: hidden;
+    height: auto;
+    transition: all 0.3s;
+}
+
+.palette.collapsed{
+    height: 0;
+}
+
+#blanket{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: none;
+}
+
+#panels{
+    position: absolute;
+    z-index: 101;
+    width: 100%;
+}
+
+.panel{
+    position: absolute;
+    background-color: silver;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-top: 50px;
+}
+
+.panel .caption{
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.panel .button{
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.panel .button:hover{
+    cursor: pointer;
+}
+
+#scorepanelcontent {
+    text-align: right;
+}
+
+#scorepanelcontent .line{
+    clear: both;
+    border-bottom: 1px solid grey;
+}
+
+#scorepanelcontent .label{
+    float:left;
+    text-align: left;
+    padding: 2px 0 0 8px;
+}
+
+#scorepanelcontent  input{
+    width: 70px;
+    border: 0;
+    padding: 4px;
+}
+
+.levellist div{
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid gray;
+    margin: 1px;
+    float: left;
+    width: 30px;
+    background-color: #cedae0;
+}
+
+.levellist div.active{
+    background-color: #9de750;
+}
+
+.levellist div:hover{
+    background-color: #9de750;
+    cursor: pointer;
+}
+

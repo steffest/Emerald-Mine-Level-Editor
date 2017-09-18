@@ -16,19 +16,58 @@ var ADF = function(){
     me.loadDisk = function(url,next){
 
         var onLoad = function(buffer){
-            console.log("ADF loaded");
 
-            disk = BinaryStream(buffer,true);
+            var parseData = function(data){
+				disk = BinaryStream(data,true);
 
-            if (disk.length == 901120){
-                // only standard DD disks are support that can store 880kb
-                // those disks have 1760 sectors of 512 bytes each
-                console.log("880 kb disk");
-                if (next) next(true);
+				if (disk.length === 901120){
+					// only standard DD disks are support that can store 880kb
+					// those disks have 1760 sectors of 512 bytes each
+					console.log("880 kb disk");
+					if (next) next(true);
+				}else{
+					console.error("this does not seem to be an uncompressed ADF file");
+					if (next) next(false);
+				}
+            };
+
+
+            if (url.indexOf(".zip")>0){
+                console.log("extracting zip file");
+
+                zip.workerScriptsPath = "script/lib/zip/";
+
+                zip.createReader(new zip.ArrayBufferReader(buffer), function(reader) {
+                    var zipEntry;
+                    var size = 0;
+                    reader.getEntries(function(entries) {
+                        if (entries && entries.length){
+                            entries.forEach(function(entry){
+                                if (entry.uncompressedSize>size){
+                                    size = entry.uncompressedSize;
+                                    zipEntry = entry;
+                                }
+                            });
+                        }
+                        if (zipEntry){
+                            zipEntry.getData(new zip.ArrayBufferWriter,function(data){
+                                if (data && data.byteLength) {
+                                    parseData(data);
+                                }
+                            })
+                        }else{
+                            console.error("Zip file could not be read ...")
+                        }
+                    });
+                }, function(error) {
+                    console.error("Zip file could not be read ...")
+                });
             }else{
-                console.error("this does not seem to be an uncompressed ADF file");
-                if (next) next(false);
+                console.log("ADF loaded");
+                parseData(buffer);
             }
+
+
         };
 
         if (typeof url == "string"){
@@ -65,6 +104,10 @@ var ADF = function(){
         info.label = disk.readString(nameLength);
 
         return info;
+    };
+
+    me.getMD5 = function(){
+        return md5(disk.buffer);
     };
 
     me.getSectorType = function(sector){
@@ -255,6 +298,10 @@ var ADF = function(){
         var long = disk.readLong();
         return long == 4294967293 ? "FILE" : "DIR";
     }
+
+    me.getDisk = function(){
+        return disk;
+    };
 
     return me;
 }();
